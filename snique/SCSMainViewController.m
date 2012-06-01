@@ -9,17 +9,18 @@
 #import "SCSMainViewController.h"
 
 @interface SCSMainViewController ()
-
+-(void)colourBar;
+-(void)updateTitle;
 @end
 
 @implementation SCSMainViewController
 
-@synthesize flipsidePopoverController = _flipsidePopoverController;
+@synthesize navBar,webView;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	[webView loadRequest:[NSURLRequest requestWithURL:[[NSURL alloc] initWithScheme:@"http" host:@"blog.nomzit.com" path:@"/snique"]]];
 }
 
 - (void)viewDidUnload
@@ -33,37 +34,37 @@
     return YES;
 }
 
-#pragma mark - Flipside View Controller
-
-- (void)flipsideViewControllerDidFinish:(SCSFlipsideViewController *)controller
+-(void)threeFingerTap:(id)sender
 {
-    [self.flipsidePopoverController dismissPopoverAnimated:YES];
-    self.flipsidePopoverController = nil;
+    stealthy = !stealthy;
+    [self updateTitle];
+    [self colourBar];
 }
 
-- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+-(void)updateTitle
 {
-    self.flipsidePopoverController = nil;
+    navBar.topItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title;"];
+    [navBar setNeedsDisplay];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+-(void)colourBar
 {
-    if ([[segue identifier] isEqualToString:@"showAlternate"]) {
-        [[segue destinationViewController] setDelegate:self];
-        UIPopoverController *popoverController = [(UIStoryboardPopoverSegue *)segue popoverController];
-        self.flipsidePopoverController = popoverController;
-        popoverController.delegate = self;
-    }
+    if (stealthy)
+        navBar.tintColor = [UIColor colorWithRed:204.0/255.0 green:0.0 blue:106.0/255.0 alpha:1.0f];
+    else
+        navBar.tintColor = [UIColor blackColor];
 }
 
-- (IBAction)togglePopover:(id)sender
+#pragma mark - WebViewDelegate
+
+-(void)webViewDidStartLoad:(UIWebView *)_webView
 {
-    if (self.flipsidePopoverController) {
-        [self.flipsidePopoverController dismissPopoverAnimated:YES];
-        self.flipsidePopoverController = nil;
-    } else {
-        [self performSegueWithIdentifier:@"showAlternate" sender:sender];
-    }
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)_webView
+{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 @end

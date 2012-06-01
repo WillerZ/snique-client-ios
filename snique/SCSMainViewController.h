@@ -6,10 +6,12 @@
 //  Copyright (c) 2012 StrawberryCat. All rights reserved.
 //
 
-#import "SCSFlipsideViewController.h"
+@interface SCSMainViewController : UIViewController <UIWebViewDelegate>
+{
+    BOOL stealthy;
+}
+@property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
+@property (strong, nonatomic) IBOutlet UIWebView *webView;
 
-@interface SCSMainViewController : UIViewController <SCSFlipsideViewControllerDelegate, UIPopoverControllerDelegate>
-
-@property (strong, nonatomic) UIPopoverController *flipsidePopoverController;
-
+-(IBAction)threeFingerTap:(id)sender;
 @end

@@ -15,7 +15,6 @@
 		A15CA28615792C1300D6F1C6 /* SCSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A15CA28515792C1300D6F1C6 /* SCSAppDelegate.m */; };
 		A15CA28915792C1300D6F1C6 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A15CA28715792C1300D6F1C6 /* MainStoryboard.storyboard */; };
 		A15CA28C15792C1300D6F1C6 /* SCSMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A15CA28B15792C1300D6F1C6 /* SCSMainViewController.m */; };
-		A15CA28F15792C1300D6F1C6 /* SCSFlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A15CA28E15792C1300D6F1C6 /* SCSFlipsideViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,17 +22,15 @@
 		A15CA27515792C1300D6F1C6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A15CA27715792C1300D6F1C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A15CA27915792C1300D6F1C6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		A15CA27D15792C1300D6F1C6 /* snique-Info.plist */ = {isa = PBXFileReference; path = "snique-Info.plist"; sourceTree = "<group>"; };
+		A15CA27D15792C1300D6F1C6 /* snique-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "snique-Info.plist"; sourceTree = "<group>"; };
 		A15CA27F15792C1300D6F1C6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A15CA28115792C1300D6F1C6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		A15CA28315792C1300D6F1C6 /* snique-Prefix.pch */ = {isa = PBXFileReference; path = "snique-Prefix.pch"; sourceTree = "<group>"; };
-		A15CA28415792C1300D6F1C6 /* SCSAppDelegate.h */ = {isa = PBXFileReference; path = SCSAppDelegate.h; sourceTree = "<group>"; };
+		A15CA28315792C1300D6F1C6 /* snique-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "snique-Prefix.pch"; sourceTree = "<group>"; };
+		A15CA28415792C1300D6F1C6 /* SCSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCSAppDelegate.h; sourceTree = "<group>"; };
 		A15CA28515792C1300D6F1C6 /* SCSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCSAppDelegate.m; sourceTree = "<group>"; };
 		A15CA28815792C1300D6F1C6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		A15CA28A15792C1300D6F1C6 /* SCSMainViewController.h */ = {isa = PBXFileReference; path = SCSMainViewController.h; sourceTree = "<group>"; };
+		A15CA28A15792C1300D6F1C6 /* SCSMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCSMainViewController.h; sourceTree = "<group>"; };
 		A15CA28B15792C1300D6F1C6 /* SCSMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCSMainViewController.m; sourceTree = "<group>"; };
-		A15CA28D15792C1300D6F1C6 /* SCSFlipsideViewController.h */ = {isa = PBXFileReference; path = SCSFlipsideViewController.h; sourceTree = "<group>"; };
-		A15CA28E15792C1300D6F1C6 /* SCSFlipsideViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCSFlipsideViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,8 +82,6 @@
 				A15CA28715792C1300D6F1C6 /* MainStoryboard.storyboard */,
 				A15CA28A15792C1300D6F1C6 /* SCSMainViewController.h */,
 				A15CA28B15792C1300D6F1C6 /* SCSMainViewController.m */,
-				A15CA28D15792C1300D6F1C6 /* SCSFlipsideViewController.h */,
-				A15CA28E15792C1300D6F1C6 /* SCSFlipsideViewController.m */,
 				A15CA27C15792C1300D6F1C6 /* Supporting Files */,
 			);
 			path = snique;
@@ -170,7 +165,6 @@
 				A15CA28215792C1300D6F1C6 /* main.m in Sources */,
 				A15CA28615792C1300D6F1C6 /* SCSAppDelegate.m in Sources */,
 				A15CA28C15792C1300D6F1C6 /* SCSMainViewController.m in Sources */,
-				A15CA28F15792C1300D6F1C6 /* SCSFlipsideViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
