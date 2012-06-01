@@ -1,5 +1,5 @@
 //
-//  SCSAppDelegate.h
+//  SCSCache.h
 //  snique
 //
 //  Created by Philip Willoughby on 01/06/2012.
@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SCSCache.h"
 
-@interface SCSAppDelegate : UIResponder <UIApplicationDelegate>
+@interface SCSCache : NSURLCache
+{
+    NSMutableDictionary *etags;
+}
 
-@property (strong, nonatomic) UIWindow *window;
-
+-(NSString *)etagForResourceAtLocation:(NSURL *)url;
 @end

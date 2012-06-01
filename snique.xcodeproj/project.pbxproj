@@ -15,6 +15,8 @@
 		A15CA28615792C1300D6F1C6 /* SCSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A15CA28515792C1300D6F1C6 /* SCSAppDelegate.m */; };
 		A15CA28915792C1300D6F1C6 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A15CA28715792C1300D6F1C6 /* MainStoryboard.storyboard */; };
 		A15CA28C15792C1300D6F1C6 /* SCSMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A15CA28B15792C1300D6F1C6 /* SCSMainViewController.m */; };
+		A15CA2971579379200D6F1C6 /* SCSCache.m in Sources */ = {isa = PBXBuildFile; fileRef = A15CA2961579379200D6F1C6 /* SCSCache.m */; };
+		A15CA299157963CD00D6F1C6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A15CA298157963CD00D6F1C6 /* Security.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,9 @@
 		A15CA28815792C1300D6F1C6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		A15CA28A15792C1300D6F1C6 /* SCSMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SCSMainViewController.h; sourceTree = "<group>"; };
 		A15CA28B15792C1300D6F1C6 /* SCSMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCSMainViewController.m; sourceTree = "<group>"; };
+		A15CA2951579379200D6F1C6 /* SCSCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSCache.h; sourceTree = "<group>"; };
+		A15CA2961579379200D6F1C6 /* SCSCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSCache.m; sourceTree = "<group>"; };
+		A15CA298157963CD00D6F1C6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A15CA299157963CD00D6F1C6 /* Security.framework in Frameworks */,
 				A15CA27615792C1300D6F1C6 /* UIKit.framework in Frameworks */,
 				A15CA27815792C1300D6F1C6 /* Foundation.framework in Frameworks */,
 				A15CA27A15792C1300D6F1C6 /* CoreGraphics.framework in Frameworks */,
@@ -67,6 +73,7 @@
 		A15CA27415792C1300D6F1C6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A15CA298157963CD00D6F1C6 /* Security.framework */,
 				A15CA27515792C1300D6F1C6 /* UIKit.framework */,
 				A15CA27715792C1300D6F1C6 /* Foundation.framework */,
 				A15CA27915792C1300D6F1C6 /* CoreGraphics.framework */,
@@ -83,6 +90,8 @@
 				A15CA28A15792C1300D6F1C6 /* SCSMainViewController.h */,
 				A15CA28B15792C1300D6F1C6 /* SCSMainViewController.m */,
 				A15CA27C15792C1300D6F1C6 /* Supporting Files */,
+				A15CA2951579379200D6F1C6 /* SCSCache.h */,
+				A15CA2961579379200D6F1C6 /* SCSCache.m */,
 			);
 			path = snique;
 			sourceTree = "<group>";
@@ -165,6 +174,7 @@
 				A15CA28215792C1300D6F1C6 /* main.m in Sources */,
 				A15CA28615792C1300D6F1C6 /* SCSAppDelegate.m in Sources */,
 				A15CA28C15792C1300D6F1C6 /* SCSMainViewController.m in Sources */,
+				A15CA2971579379200D6F1C6 /* SCSCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

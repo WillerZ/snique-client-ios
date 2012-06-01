@@ -7,11 +7,22 @@
 //
 
 #import "SCSMainViewController.h"
+#import "SCSCache.h"
+#import <CommonCrypto/CommonCryptor.h>
 
 @interface SCSMainViewController ()
 -(void)colourBar;
 -(void)updateTitle;
 @end
+
+static const unsigned char keyRaw[] =
+{
+    0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff
+};
+static const unsigned char ivRaw[] =
+{
+    0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88, 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11, 0x00
+};
 
 @implementation SCSMainViewController
 
@@ -43,8 +54,89 @@
 
 -(void)updateTitle
 {
-    navBar.topItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title;"];
-    [navBar setNeedsDisplay];
+    NSString *title = nil;
+    if (stealthy)
+    {
+        NSMutableString *codedString = [[NSMutableString alloc] init];
+        NSUInteger count = [[webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('pix').childNodes.length"] intValue];
+        NSLog(@"Element id pix has %u children",count);
+        for (NSUInteger index = 0; index < count; ++index)
+        {
+            NSString *src = [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"document.getElementById('pix').childNodes[%u].getAttribute('src')",index]]; 
+            if ([src length])
+            {
+                NSURL *url = [NSURL URLWithString:src];
+                NSString *eTag = [(SCSCache *)[NSURLCache sharedURLCache] etagForResourceAtLocation:url];
+                if (eTag)
+                {
+                    NSRange range;
+                    range.length = eTag.length - 2;
+                    range.location = 1;
+                    [codedString appendString:[eTag substringWithRange:range]];
+                }
+                NSLog(@"SRC %@",src);
+                NSLog(@"URL %@ - ETag %@",url,eTag);
+            }
+        }
+        title = [codedString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSData *hexData = [title dataUsingEncoding:NSASCIIStringEncoding];
+        NSMutableData *data = [[NSMutableData alloc] initWithLength:1 + hexData.length/2];
+        unsigned char *out = data.mutableBytes;
+        const unsigned char *in = hexData.bytes;
+        for (NSUInteger i = 0,j = 0; i < hexData.length; ++i)
+        {
+            unsigned char half = 0;
+            switch (in[i])
+            {
+                case 'f': case 'F': half = 0xfu; break;
+                case 'e': case 'E': half = 0xeu; break;
+                case 'd': case 'D': half = 0xdu; break;
+                case 'c': case 'C': half = 0xcu; break;
+                case 'b': case 'B': half = 0xbu; break;
+                case 'a': case 'A': half = 0xau; break;
+                case '9': half = 9u; break;
+                case '8': half = 8u; break;
+                case '7': half = 7u; break;
+                case '6': half = 6u; break;
+                case '5': half = 5u; break;
+                case '4': half = 4u; break;
+                case '3': half = 3u; break;
+                case '2': half = 2u; break;
+                case '1': half = 1u; break;
+                default:
+                    break;
+            }
+            if (i & 1)
+            {
+                out[j] |= half;
+                ++j;
+            }
+            else
+            {
+                out[j] = half << 4;
+            }
+        }
+        data.length = hexData.length/2;
+        NSMutableData *decoded = [[NSMutableData alloc] initWithLength:data.length + 32];
+        size_t decodedLength = 0;
+        size_t finalBlockLength = 0;
+        CCCryptorStatus cs;
+        CCCryptorRef cryptor;
+        cs = CCCryptorCreate(kCCDecrypt, kCCAlgorithmAES128, kCCOptionPKCS7Padding, keyRaw, sizeof(keyRaw), ivRaw, &cryptor);
+        NSAssert1(cs == kCCSuccess,@"CCCryptorCreate failed %d",cs);
+        cs = CCCryptorUpdate(cryptor, [data bytes], [data length], decoded.mutableBytes, decoded.length, &decodedLength);
+        NSAssert1(cs == kCCSuccess,@"CCCryptorUpdate failed %d",cs);
+        cs = CCCryptorFinal(cryptor, decoded.mutableBytes + decodedLength, decoded.length - decodedLength, &finalBlockLength);
+        NSAssert1(cs == kCCSuccess,@"CCCryptorFinal failed %d",cs);
+        decodedLength += finalBlockLength;
+        decoded.length = decodedLength;
+        title = [[NSString alloc] initWithData:decoded encoding:NSUTF8StringEncoding];
+    }
+    else
+    {
+        title = [webView stringByEvaluatingJavaScriptFromString:@"document.title;"];
+    }
+    navBar.topItem.title = title;
 }
 
 -(void)colourBar
@@ -65,6 +157,7 @@
 -(void)webViewDidFinishLoad:(UIWebView *)_webView
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [self updateTitle];
 }
 
 @end
