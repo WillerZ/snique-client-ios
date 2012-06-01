@@ -1,0 +1,291 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A15CA27615792C1300D6F1C6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A15CA27515792C1300D6F1C6 /* UIKit.framework */; };
+		A15CA27815792C1300D6F1C6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A15CA27715792C1300D6F1C6 /* Foundation.framework */; };
+		A15CA27A15792C1300D6F1C6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A15CA27915792C1300D6F1C6 /* CoreGraphics.framework */; };
+		A15CA28015792C1300D6F1C6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A15CA27E15792C1300D6F1C6 /* InfoPlist.strings */; };
+		A15CA28215792C1300D6F1C6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A15CA28115792C1300D6F1C6 /* main.m */; };
+		A15CA28615792C1300D6F1C6 /* SCSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A15CA28515792C1300D6F1C6 /* SCSAppDelegate.m */; };
+		A15CA28915792C1300D6F1C6 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A15CA28715792C1300D6F1C6 /* MainStoryboard.storyboard */; };
+		A15CA28C15792C1300D6F1C6 /* SCSMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A15CA28B15792C1300D6F1C6 /* SCSMainViewController.m */; };
+		A15CA28F15792C1300D6F1C6 /* SCSFlipsideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A15CA28E15792C1300D6F1C6 /* SCSFlipsideViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A15CA27115792C1300D6F1C6 /* snique.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = snique.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A15CA27515792C1300D6F1C6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		A15CA27715792C1300D6F1C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		A15CA27915792C1300D6F1C6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		A15CA27D15792C1300D6F1C6 /* snique-Info.plist */ = {isa = PBXFileReference; path = "snique-Info.plist"; sourceTree = "<group>"; };
+		A15CA27F15792C1300D6F1C6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		A15CA28115792C1300D6F1C6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A15CA28315792C1300D6F1C6 /* snique-Prefix.pch */ = {isa = PBXFileReference; path = "snique-Prefix.pch"; sourceTree = "<group>"; };
+		A15CA28415792C1300D6F1C6 /* SCSAppDelegate.h */ = {isa = PBXFileReference; path = SCSAppDelegate.h; sourceTree = "<group>"; };
+		A15CA28515792C1300D6F1C6 /* SCSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCSAppDelegate.m; sourceTree = "<group>"; };
+		A15CA28815792C1300D6F1C6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		A15CA28A15792C1300D6F1C6 /* SCSMainViewController.h */ = {isa = PBXFileReference; path = SCSMainViewController.h; sourceTree = "<group>"; };
+		A15CA28B15792C1300D6F1C6 /* SCSMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCSMainViewController.m; sourceTree = "<group>"; };
+		A15CA28D15792C1300D6F1C6 /* SCSFlipsideViewController.h */ = {isa = PBXFileReference; path = SCSFlipsideViewController.h; sourceTree = "<group>"; };
+		A15CA28E15792C1300D6F1C6 /* SCSFlipsideViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SCSFlipsideViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A15CA26E15792C1300D6F1C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A15CA27615792C1300D6F1C6 /* UIKit.framework in Frameworks */,
+				A15CA27815792C1300D6F1C6 /* Foundation.framework in Frameworks */,
+				A15CA27A15792C1300D6F1C6 /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A15CA26615792C1300D6F1C6 = {
+			isa = PBXGroup;
+			children = (
+				A15CA27B15792C1300D6F1C6 /* snique */,
+				A15CA27415792C1300D6F1C6 /* Frameworks */,
+				A15CA27215792C1300D6F1C6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A15CA27215792C1300D6F1C6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A15CA27115792C1300D6F1C6 /* snique.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A15CA27415792C1300D6F1C6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A15CA27515792C1300D6F1C6 /* UIKit.framework */,
+				A15CA27715792C1300D6F1C6 /* Foundation.framework */,
+				A15CA27915792C1300D6F1C6 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A15CA27B15792C1300D6F1C6 /* snique */ = {
+			isa = PBXGroup;
+			children = (
+				A15CA28415792C1300D6F1C6 /* SCSAppDelegate.h */,
+				A15CA28515792C1300D6F1C6 /* SCSAppDelegate.m */,
+				A15CA28715792C1300D6F1C6 /* MainStoryboard.storyboard */,
+				A15CA28A15792C1300D6F1C6 /* SCSMainViewController.h */,
+				A15CA28B15792C1300D6F1C6 /* SCSMainViewController.m */,
+				A15CA28D15792C1300D6F1C6 /* SCSFlipsideViewController.h */,
+				A15CA28E15792C1300D6F1C6 /* SCSFlipsideViewController.m */,
+				A15CA27C15792C1300D6F1C6 /* Supporting Files */,
+			);
+			path = snique;
+			sourceTree = "<group>";
+		};
+		A15CA27C15792C1300D6F1C6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A15CA27D15792C1300D6F1C6 /* snique-Info.plist */,
+				A15CA27E15792C1300D6F1C6 /* InfoPlist.strings */,
+				A15CA28115792C1300D6F1C6 /* main.m */,
+				A15CA28315792C1300D6F1C6 /* snique-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A15CA27015792C1300D6F1C6 /* snique */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A15CA29215792C1300D6F1C6 /* Build configuration list for PBXNativeTarget "snique" */;
+			buildPhases = (
+				A15CA26D15792C1300D6F1C6 /* Sources */,
+				A15CA26E15792C1300D6F1C6 /* Frameworks */,
+				A15CA26F15792C1300D6F1C6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = snique;
+			productName = snique;
+			productReference = A15CA27115792C1300D6F1C6 /* snique.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A15CA26815792C1300D6F1C6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = SCS;
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = StrawberryCat;
+			};
+			buildConfigurationList = A15CA26B15792C1300D6F1C6 /* Build configuration list for PBXProject "snique" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A15CA26615792C1300D6F1C6;
+			productRefGroup = A15CA27215792C1300D6F1C6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A15CA27015792C1300D6F1C6 /* snique */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A15CA26F15792C1300D6F1C6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A15CA28015792C1300D6F1C6 /* InfoPlist.strings in Resources */,
+				A15CA28915792C1300D6F1C6 /* MainStoryboard.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A15CA26D15792C1300D6F1C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A15CA28215792C1300D6F1C6 /* main.m in Sources */,
+				A15CA28615792C1300D6F1C6 /* SCSAppDelegate.m in Sources */,
+				A15CA28C15792C1300D6F1C6 /* SCSMainViewController.m in Sources */,
+				A15CA28F15792C1300D6F1C6 /* SCSFlipsideViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A15CA27E15792C1300D6F1C6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A15CA27F15792C1300D6F1C6 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		A15CA28715792C1300D6F1C6 /* MainStoryboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A15CA28815792C1300D6F1C6 /* en */,
+			);
+			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A15CA29015792C1300D6F1C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		A15CA29115792C1300D6F1C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A15CA29315792C1300D6F1C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "snique/snique-Prefix.pch";
+				INFOPLIST_FILE = "snique/snique-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		A15CA29415792C1300D6F1C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "snique/snique-Prefix.pch";
+				INFOPLIST_FILE = "snique/snique-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A15CA26B15792C1300D6F1C6 /* Build configuration list for PBXProject "snique" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A15CA29015792C1300D6F1C6 /* Debug */,
+				A15CA29115792C1300D6F1C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A15CA29215792C1300D6F1C6 /* Build configuration list for PBXNativeTarget "snique" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A15CA29315792C1300D6F1C6 /* Debug */,
+				A15CA29415792C1300D6F1C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A15CA26815792C1300D6F1C6 /* Project object */;
+}
