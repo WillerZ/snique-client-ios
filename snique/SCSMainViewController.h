@@ -14,4 +14,5 @@
 @property (strong, nonatomic) IBOutlet UIWebView *webView;
 
 -(IBAction)threeFingerTap:(id)sender;
+-(IBAction)refreshTapped:(id)sender;
 @end

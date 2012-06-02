@@ -13,6 +13,7 @@
 @interface SCSMainViewController ()
 -(void)colourBar;
 -(void)updateTitle;
+-(void)loadPage;
 @end
 
 static const unsigned char keyRaw[] =
@@ -28,10 +29,16 @@ static const unsigned char ivRaw[] =
 
 @synthesize navBar,webView;
 
+-(void)loadPage
+{
+    [webView loadRequest:[NSURLRequest requestWithURL:[[NSURL alloc] initWithScheme:@"http" host:@"blog.nomzit.com" path:@"/snique"]]];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	[webView loadRequest:[NSURLRequest requestWithURL:[[NSURL alloc] initWithScheme:@"http" host:@"blog.nomzit.com" path:@"/snique"]]];
+    stealthy = YES;
+    [self loadPage];
 }
 
 - (void)viewDidUnload
@@ -50,6 +57,11 @@ static const unsigned char ivRaw[] =
     stealthy = !stealthy;
     [self updateTitle];
     [self colourBar];
+}
+
+-(void)refreshTapped:(id)sender
+{
+    [self loadPage];
 }
 
 -(void)updateTitle
@@ -119,18 +131,34 @@ static const unsigned char ivRaw[] =
         data.length = hexData.length/2;
         NSMutableData *decoded = [[NSMutableData alloc] initWithLength:data.length + 32];
         size_t decodedLength = 0;
+        size_t firstDecodedLength = 0;
         size_t finalBlockLength = 0;
         CCCryptorStatus cs;
         CCCryptorRef cryptor;
         cs = CCCryptorCreate(kCCDecrypt, kCCAlgorithmAES128, kCCOptionPKCS7Padding, keyRaw, sizeof(keyRaw), ivRaw, &cryptor);
         NSAssert1(cs == kCCSuccess,@"CCCryptorCreate failed %d",cs);
-        cs = CCCryptorUpdate(cryptor, [data bytes], [data length], decoded.mutableBytes, decoded.length, &decodedLength);
-        NSAssert1(cs == kCCSuccess,@"CCCryptorUpdate failed %d",cs);
-        cs = CCCryptorFinal(cryptor, decoded.mutableBytes + decodedLength, decoded.length - decodedLength, &finalBlockLength);
-        NSAssert1(cs == kCCSuccess,@"CCCryptorFinal failed %d",cs);
-        decodedLength += finalBlockLength;
-        decoded.length = decodedLength;
-        title = [[NSString alloc] initWithData:decoded encoding:NSUTF8StringEncoding];
+        cs = CCCryptorUpdate(cryptor, [data bytes], 32, decoded.mutableBytes, decoded.length, &firstDecodedLength);
+        if (cs == kCCSuccess)
+        {
+            struct {uint32_t eyecatcher; uint32_t length;} *hdr = decoded.mutableBytes;
+            uint32_t eyecatcher = CFSwapInt32BigToHost(hdr->eyecatcher);
+            uint32_t length = CFSwapInt32BigToHost(hdr->length);
+            if (eyecatcher == 0xFACEF00DU)
+            {
+                cs = CCCryptorUpdate(cryptor, [data bytes] + 32, [data length] - 32, decoded.mutableBytes + firstDecodedLength, decoded.length - firstDecodedLength, &decodedLength);
+                NSAssert1(cs == kCCSuccess,@"CCCryptorUpdate failed %d",cs);
+                decodedLength += firstDecodedLength;
+                cs = CCCryptorFinal(cryptor, decoded.mutableBytes + decodedLength, decoded.length - decodedLength, &finalBlockLength);
+                decodedLength += finalBlockLength;
+                decoded.length = decodedLength;
+                NSRange messageRange = { 8, length };
+                title = [[NSString alloc] initWithData:[decoded subdataWithRange:messageRange] encoding:NSUTF8StringEncoding];
+            }
+            else 
+            {
+                title = @"No concealed message here";
+            }
+        }
     }
     else
     {

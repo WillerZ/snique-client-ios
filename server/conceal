@@ -14,9 +14,7 @@ cipher.iv = ivRaw;
 message = ARGV.join(" ");
 message.strip!;
 
-while (message.length < 28)
-  message = message + " ";
-end
+message = [0xFACEF00D,message.length,message].pack("NNA*");
 
 output = cipher.update(message);
 output = output + cipher.final;
