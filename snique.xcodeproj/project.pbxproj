@@ -17,6 +17,7 @@
 		A15CA28C15792C1300D6F1C6 /* SCSMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A15CA28B15792C1300D6F1C6 /* SCSMainViewController.m */; };
 		A15CA2971579379200D6F1C6 /* SCSCache.m in Sources */ = {isa = PBXBuildFile; fileRef = A15CA2961579379200D6F1C6 /* SCSCache.m */; };
 		A15CA299157963CD00D6F1C6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A15CA298157963CD00D6F1C6 /* Security.framework */; };
+		A180D11E157CF0E500089DAF /* SCSSniqueDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = A180D11D157CF0E500089DAF /* SCSSniqueDecoder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,8 @@
 		A15CA2951579379200D6F1C6 /* SCSCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSCache.h; sourceTree = "<group>"; };
 		A15CA2961579379200D6F1C6 /* SCSCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSCache.m; sourceTree = "<group>"; };
 		A15CA298157963CD00D6F1C6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		A180D11C157CF0E500089DAF /* SCSSniqueDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSSniqueDecoder.h; sourceTree = "<group>"; };
+		A180D11D157CF0E500089DAF /* SCSSniqueDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSSniqueDecoder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +95,8 @@
 				A15CA27C15792C1300D6F1C6 /* Supporting Files */,
 				A15CA2951579379200D6F1C6 /* SCSCache.h */,
 				A15CA2961579379200D6F1C6 /* SCSCache.m */,
+				A180D11C157CF0E500089DAF /* SCSSniqueDecoder.h */,
+				A180D11D157CF0E500089DAF /* SCSSniqueDecoder.m */,
 			);
 			path = snique;
 			sourceTree = "<group>";
@@ -175,6 +180,7 @@
 				A15CA28615792C1300D6F1C6 /* SCSAppDelegate.m in Sources */,
 				A15CA28C15792C1300D6F1C6 /* SCSMainViewController.m in Sources */,
 				A15CA2971579379200D6F1C6 /* SCSCache.m in Sources */,
+				A180D11E157CF0E500089DAF /* SCSSniqueDecoder.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +294,7 @@
 				A15CA29415792C1300D6F1C6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

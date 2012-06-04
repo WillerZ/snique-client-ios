@@ -33,7 +33,6 @@
                 [etags setObject:[headers objectForKey:key] forKey:request.URL.standardizedURL.absoluteString];
         }
     }
-    NSLog(@"Etags\n%@",etags);
 }
 
 -(NSString *)etagForResourceAtLocation:(NSURL *)url

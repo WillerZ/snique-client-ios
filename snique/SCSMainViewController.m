@@ -8,21 +8,18 @@
 
 #import "SCSMainViewController.h"
 #import "SCSCache.h"
-#import <CommonCrypto/CommonCryptor.h>
+#import "SCSSniqueDecoder.h"
 
 @interface SCSMainViewController ()
 -(void)colourBar;
 -(void)updateTitle;
 -(void)loadPage;
+-(NSData *)hexDataFromString:(NSString *)string;
 @end
 
 static const unsigned char keyRaw[] =
 {
     0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff
-};
-static const unsigned char ivRaw[] =
-{
-    0xff, 0xee, 0xdd, 0xcc, 0xbb, 0xaa, 0x99, 0x88, 0x77, 0x66, 0x55, 0x44, 0x33, 0x22, 0x11, 0x00
 };
 
 @implementation SCSMainViewController
@@ -37,7 +34,7 @@ static const unsigned char ivRaw[] =
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    stealthy = YES;
+//    stealthy = YES;
     [self loadPage];
 }
 
@@ -66,105 +63,7 @@ static const unsigned char ivRaw[] =
 
 -(void)updateTitle
 {
-    NSString *title = nil;
-    if (stealthy)
-    {
-        NSMutableString *codedString = [[NSMutableString alloc] init];
-        NSUInteger count = [[webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('pix').childNodes.length"] intValue];
-        NSLog(@"Element id pix has %u children",count);
-        for (NSUInteger index = 0; index < count; ++index)
-        {
-            NSString *src = [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"document.getElementById('pix').childNodes[%u].getAttribute('src')",index]]; 
-            if ([src length])
-            {
-                NSURL *url = [NSURL URLWithString:src];
-                NSString *eTag = [(SCSCache *)[NSURLCache sharedURLCache] etagForResourceAtLocation:url];
-                if (eTag)
-                {
-                    NSRange range;
-                    range.length = eTag.length - 2;
-                    range.location = 1;
-                    [codedString appendString:[eTag substringWithRange:range]];
-                }
-                NSLog(@"SRC %@",src);
-                NSLog(@"URL %@ - ETag %@",url,eTag);
-            }
-        }
-        title = [codedString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        NSData *hexData = [title dataUsingEncoding:NSASCIIStringEncoding];
-        NSMutableData *data = [[NSMutableData alloc] initWithLength:1 + hexData.length/2];
-        unsigned char *out = data.mutableBytes;
-        const unsigned char *in = hexData.bytes;
-        for (NSUInteger i = 0,j = 0; i < hexData.length; ++i)
-        {
-            unsigned char half = 0;
-            switch (in[i])
-            {
-                case 'f': case 'F': half = 0xfu; break;
-                case 'e': case 'E': half = 0xeu; break;
-                case 'd': case 'D': half = 0xdu; break;
-                case 'c': case 'C': half = 0xcu; break;
-                case 'b': case 'B': half = 0xbu; break;
-                case 'a': case 'A': half = 0xau; break;
-                case '9': half = 9u; break;
-                case '8': half = 8u; break;
-                case '7': half = 7u; break;
-                case '6': half = 6u; break;
-                case '5': half = 5u; break;
-                case '4': half = 4u; break;
-                case '3': half = 3u; break;
-                case '2': half = 2u; break;
-                case '1': half = 1u; break;
-                default:
-                    break;
-            }
-            if (i & 1)
-            {
-                out[j] |= half;
-                ++j;
-            }
-            else
-            {
-                out[j] = half << 4;
-            }
-        }
-        data.length = hexData.length/2;
-        NSMutableData *decoded = [[NSMutableData alloc] initWithLength:data.length + 32];
-        size_t decodedLength = 0;
-        size_t firstDecodedLength = 0;
-        size_t finalBlockLength = 0;
-        CCCryptorStatus cs;
-        CCCryptorRef cryptor;
-        cs = CCCryptorCreate(kCCDecrypt, kCCAlgorithmAES128, kCCOptionPKCS7Padding, keyRaw, sizeof(keyRaw), ivRaw, &cryptor);
-        NSAssert1(cs == kCCSuccess,@"CCCryptorCreate failed %d",cs);
-        cs = CCCryptorUpdate(cryptor, [data bytes], 32, decoded.mutableBytes, decoded.length, &firstDecodedLength);
-        if (cs == kCCSuccess)
-        {
-            struct {uint32_t eyecatcher; uint32_t length;} *hdr = decoded.mutableBytes;
-            uint32_t eyecatcher = CFSwapInt32BigToHost(hdr->eyecatcher);
-            uint32_t length = CFSwapInt32BigToHost(hdr->length);
-            if (eyecatcher == 0xFACEF00DU)
-            {
-                cs = CCCryptorUpdate(cryptor, [data bytes] + 32, [data length] - 32, decoded.mutableBytes + firstDecodedLength, decoded.length - firstDecodedLength, &decodedLength);
-                NSAssert1(cs == kCCSuccess,@"CCCryptorUpdate failed %d",cs);
-                decodedLength += firstDecodedLength;
-                cs = CCCryptorFinal(cryptor, decoded.mutableBytes + decodedLength, decoded.length - decodedLength, &finalBlockLength);
-                decodedLength += finalBlockLength;
-                decoded.length = decodedLength;
-                NSRange messageRange = { 8, length };
-                title = [[NSString alloc] initWithData:[decoded subdataWithRange:messageRange] encoding:NSUTF8StringEncoding];
-            }
-            else 
-            {
-                title = @"No concealed message here";
-            }
-        }
-    }
-    else
-    {
-        title = [webView stringByEvaluatingJavaScriptFromString:@"document.title;"];
-    }
-    navBar.topItem.title = title;
+    navBar.topItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title;"];
 }
 
 -(void)colourBar
@@ -173,6 +72,88 @@ static const unsigned char ivRaw[] =
         navBar.tintColor = [UIColor colorWithRed:204.0/255.0 green:0.0 blue:106.0/255.0 alpha:1.0f];
     else
         navBar.tintColor = [UIColor blackColor];
+}
+
+-(NSArray *)messageFromWebview:(UIWebView *)_webView
+{
+    NSMutableArray *message = [[NSMutableArray alloc] init];
+    NSString *theHtml = [webView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML;"];
+    NSRegularExpression *srcRegex = [[NSRegularExpression alloc] initWithPattern:@"src\\s*=\\s*['\"]([^'\"]*)['\"]"
+                                                                         options:0
+                                                                           error:nil];
+    [srcRegex enumerateMatchesInString:theHtml
+                               options:0
+                                 range:NSMakeRange(0, theHtml.length)
+                            usingBlock:^(NSTextCheckingResult *result, NSMatchingFlags flags, BOOL *stop)
+    {
+        NSString *src = [theHtml substringWithRange:[result rangeAtIndex:1]];
+        if ([src length])
+        {
+            NSURL *url = [NSURL URLWithString:src];
+            NSString *eTag = [(SCSCache *)[NSURLCache sharedURLCache] etagForResourceAtLocation:url];
+            if (eTag)
+            {
+                NSRange range;
+                range.length = eTag.length - 2;
+                range.location = 1;
+                if (([eTag characterAtIndex:0] == 'W') || ([eTag characterAtIndex:0] == 'w'))
+                {
+                    range.length -= 1;
+                    range.location = 2;
+                }
+                [message addObject:[self hexDataFromString:[eTag substringWithRange:range]]];
+            }
+            NSLog(@"SRC %@",src);
+            NSLog(@"URL %@ - ETag %@",url,eTag);
+        }
+    }];
+    return message;
+}
+
+-(NSData *)hexDataFromString:(NSString *)string
+{
+    NSData *hexData = [string dataUsingEncoding:NSASCIIStringEncoding];
+    NSMutableData *data = [[NSMutableData alloc] initWithLength:1 + hexData.length/2];
+    unsigned char *out = data.mutableBytes;
+    const unsigned char *in = hexData.bytes;
+    NSUInteger hexIndex = 0;
+    for (NSUInteger i = 0,j = 0; i < hexData.length; ++i)
+    {
+        unsigned char half = 0;
+        switch (in[i])
+        {
+            case 'f': case 'F': half = 0xfu; break;
+            case 'e': case 'E': half = 0xeu; break;
+            case 'd': case 'D': half = 0xdu; break;
+            case 'c': case 'C': half = 0xcu; break;
+            case 'b': case 'B': half = 0xbu; break;
+            case 'a': case 'A': half = 0xau; break;
+            case '9': half = 9u; break;
+            case '8': half = 8u; break;
+            case '7': half = 7u; break;
+            case '6': half = 6u; break;
+            case '5': half = 5u; break;
+            case '4': half = 4u; break;
+            case '3': half = 3u; break;
+            case '2': half = 2u; break;
+            case '1': half = 1u; break;
+            case '0': half = 0u; break;
+            default:
+                continue;
+        }
+        if (hexIndex & 1)
+        {
+            out[j] |= half;
+            ++j;
+        }
+        else
+        {
+            out[j] = half << 4;
+        }
+        ++hexIndex;
+    }
+    data.length = hexIndex >>1;
+    return data;
 }
 
 #pragma mark - WebViewDelegate
@@ -185,6 +166,15 @@ static const unsigned char ivRaw[] =
 -(void)webViewDidFinishLoad:(UIWebView *)_webView
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    NSArray *message = [self messageFromWebview:_webView];
+    NSString *decoded = [[[SCSSniqueDecoder alloc] initWithKey:[NSData dataWithBytesNoCopy:keyRaw length:sizeof(keyRaw) freeWhenDone:NO]] decodeMessage:message];
+    if (decoded)
+    {
+        UILocalNotification *note = [[UILocalNotification alloc] init];
+        note.fireDate = [NSDate date];
+        note.alertBody = decoded;
+        [[UIApplication sharedApplication] scheduleLocalNotification:note];
+    }
     [self updateTitle];
 }
 
