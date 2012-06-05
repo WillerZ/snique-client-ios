@@ -39,6 +39,7 @@
 		A15CA298157963CD00D6F1C6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		A180D11C157CF0E500089DAF /* SCSSniqueDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSSniqueDecoder.h; sourceTree = "<group>"; };
 		A180D11D157CF0E500089DAF /* SCSSniqueDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSSniqueDecoder.m; sourceTree = "<group>"; };
+		A180D120157E8DD600089DAF /* snique.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = snique.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +88,7 @@
 		A15CA27B15792C1300D6F1C6 /* snique */ = {
 			isa = PBXGroup;
 			children = (
+				A180D120157E8DD600089DAF /* snique.entitlements */,
 				A15CA28415792C1300D6F1C6 /* SCSAppDelegate.h */,
 				A15CA28515792C1300D6F1C6 /* SCSAppDelegate.m */,
 				A15CA28715792C1300D6F1C6 /* MainStoryboard.storyboard */,
@@ -256,6 +258,7 @@
 		A15CA29315792C1300D6F1C6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = snique/snique.entitlements;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "snique/snique-Prefix.pch";
 				INFOPLIST_FILE = "snique/snique-Info.plist";
@@ -268,6 +271,7 @@
 		A15CA29415792C1300D6F1C6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = snique/snique.entitlements;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "snique/snique-Prefix.pch";
 				INFOPLIST_FILE = "snique/snique-Info.plist";

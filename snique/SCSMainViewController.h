@@ -6,13 +6,19 @@
 //  Copyright (c) 2012 StrawberryCat. All rights reserved.
 //
 
-@interface SCSMainViewController : UIViewController <UIWebViewDelegate>
-{
-    BOOL stealthy;
-}
+extern NSString * const kSecretKeyKey;
+
+@interface SCSMainViewController : UIViewController <UIWebViewDelegate,UITextFieldDelegate>
 @property (strong, nonatomic) IBOutlet UINavigationBar *navBar;
 @property (strong, nonatomic) IBOutlet UIWebView *webView;
+@property (strong, nonatomic) IBOutlet UILabel *titleLabel;
+@property (strong, nonatomic) IBOutlet UITextField *addressField;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *reloadButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *stopButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *backButton;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *nextButton;
+@property (strong, nonatomic) IBOutletCollection(UIBarItem)NSArray *leftItems;
 
--(IBAction)threeFingerTap:(id)sender;
--(IBAction)refreshTapped:(id)sender;
+-(IBAction)bookMarksTapped:(id)sender;
+-(IBAction)titleTapped:(id)sender;
 @end

@@ -11,22 +11,21 @@
 #import "SCSSniqueDecoder.h"
 
 @interface SCSMainViewController ()
--(void)colourBar;
+-(void)updateBackNextButtons;
 -(void)updateTitle;
--(void)loadPage;
 -(NSData *)hexDataFromString:(NSString *)string;
+-(void)updateKVStoreItems:(NSNotification *)note;
+@property(readwrite,nonatomic,strong)SCSSniqueDecoder *decoder;
 @end
 
-static const unsigned char keyRaw[] =
-{
-    0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77, 0x88, 0x99, 0xaa, 0xbb, 0xcc, 0xdd, 0xee, 0xff
-};
+NSString * const kSecretKeyKey = @"SCSSniqueSecretKey";
 
 @implementation SCSMainViewController
+@synthesize decoder;
+@synthesize navBar,webView,titleLabel,addressField,leftItems;
+@synthesize reloadButton,stopButton,backButton,nextButton;
 
-@synthesize navBar,webView;
-
--(void)loadPage
+-(void)bookMarksTapped:(id)sender
 {
     [webView loadRequest:[NSURLRequest requestWithURL:[[NSURL alloc] initWithScheme:@"http" host:@"blog.nomzit.com" path:@"/snique"]]];
 }
@@ -34,8 +33,15 @@ static const unsigned char keyRaw[] =
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-//    stealthy = YES;
-    [self loadPage];
+    [self bookMarksTapped:nil];
+    navBar.topItem.leftBarButtonItems = leftItems;
+    self.decoder = [[SCSSniqueDecoder alloc] initWithKey:[[NSUserDefaults standardUserDefaults] dataForKey:kSecretKeyKey]];
+    NSUbiquitousKeyValueStore* store = [NSUbiquitousKeyValueStore defaultStore];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateKVStoreItems:)
+                                                 name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification
+                                               object:store];
+    [store synchronize];
 }
 
 - (void)viewDidUnload
@@ -49,29 +55,17 @@ static const unsigned char keyRaw[] =
     return YES;
 }
 
--(void)threeFingerTap:(id)sender
-{
-    stealthy = !stealthy;
-    [self updateTitle];
-    [self colourBar];
-}
-
--(void)refreshTapped:(id)sender
-{
-    [self loadPage];
-}
-
 -(void)updateTitle
 {
-    navBar.topItem.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title;"];
+    titleLabel.text = [webView stringByEvaluatingJavaScriptFromString:@"document.title;"];
 }
 
--(void)colourBar
+-(void)titleTapped:(id)sender
 {
-    if (stealthy)
-        navBar.tintColor = [UIColor colorWithRed:204.0/255.0 green:0.0 blue:106.0/255.0 alpha:1.0f];
-    else
-        navBar.tintColor = [UIColor blackColor];
+    titleLabel.hidden = YES;
+    addressField.hidden = NO;
+    addressField.text = webView.request.URL.absoluteString;
+    [addressField becomeFirstResponder];
 }
 
 -(NSArray *)messageFromWebview:(UIWebView *)_webView
@@ -154,26 +148,90 @@ static const unsigned char keyRaw[] =
     return data;
 }
 
+#pragma mark - TextFieldDelegate
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    NSString *address = textField.text;
+    NSURL *url = nil;
+    if ([address rangeOfString:@" "].location != NSNotFound)
+    {
+        url = [[NSURL alloc] initWithScheme:@"http"
+                                       host:@"lmgtfy.com"
+                                       path:[@"/?q=" stringByAppendingString:[[address stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@" " withString:@"+"]]];
+    }
+    else
+        url = [[NSURL alloc] initWithString:address];
+    if (!url.scheme.length)
+    {
+        url = [[NSURL alloc] initWithString:[@"http://" stringByAppendingString:address]];
+    }
+    [webView loadRequest:[NSURLRequest requestWithURL:url]];
+    [textField resignFirstResponder];
+    return YES;
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField
+{
+    textField.hidden = YES;
+    titleLabel.hidden = NO;
+}
+
+-(void)updateBackNextButtons
+{
+    backButton.enabled = webView.canGoBack;
+    nextButton.enabled = webView.canGoForward;
+}
+
+-(void)updateKVStoreItems:(NSNotification *)note
+{
+    NSDictionary* userInfo = [note userInfo];
+    NSNumber* reasonForChange = [userInfo objectForKey:NSUbiquitousKeyValueStoreChangeReasonKey];
+    NSInteger reason = -1;
+    
+    if (!reasonForChange)
+        return;
+    
+    reason = [reasonForChange integerValue];
+    if ((reason == NSUbiquitousKeyValueStoreServerChange) ||
+        (reason == NSUbiquitousKeyValueStoreInitialSyncChange))
+    {
+        NSArray* changedKeys = [userInfo objectForKey:NSUbiquitousKeyValueStoreChangedKeysKey];
+        NSUbiquitousKeyValueStore* store = [NSUbiquitousKeyValueStore defaultStore];
+        NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+        
+        for (NSString* key in changedKeys)
+        {
+            id value = [store objectForKey:key];
+            [userDefaults setObject:value forKey:key];
+        }
+        [userDefaults synchronize];
+    }
+}
 #pragma mark - WebViewDelegate
 
 -(void)webViewDidStartLoad:(UIWebView *)_webView
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    navBar.topItem.rightBarButtonItem = stopButton;
+    [self updateBackNextButtons];
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)_webView
 {
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    navBar.topItem.rightBarButtonItem = reloadButton;
     NSArray *message = [self messageFromWebview:_webView];
-    NSString *decoded = [[[SCSSniqueDecoder alloc] initWithKey:[NSData dataWithBytesNoCopy:keyRaw length:sizeof(keyRaw) freeWhenDone:NO]] decodeMessage:message];
+    NSString *decoded = [decoder decodeMessage:message];
     if (decoded)
     {
         UILocalNotification *note = [[UILocalNotification alloc] init];
         note.fireDate = [NSDate date];
         note.alertBody = decoded;
-        [[UIApplication sharedApplication] scheduleLocalNotification:note];
+        [[UIApplication sharedApplication] presentLocalNotificationNow:note];
     }
     [self updateTitle];
+    [self updateBackNextButtons];
 }
 
 @end
