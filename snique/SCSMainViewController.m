@@ -157,8 +157,9 @@ NSString * const kSecretKeyKey = @"SCSSniqueSecretKey";
     if ([address rangeOfString:@" "].location != NSNotFound)
     {
         url = [[NSURL alloc] initWithScheme:@"http"
-                                       host:@"lmgtfy.com"
-                                       path:[@"/?q=" stringByAppendingString:[[address stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] stringByReplacingOccurrencesOfString:@" " withString:@"+"]]];
+                                       host:@"www.google.com"
+                                       path:[@"/search?btnG=1&pws=0&q=" stringByAppendingString:[[address stringByReplacingOccurrencesOfString:@" " withString:@"+"]
+                                                                                                 stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
     }
     else
         url = [[NSURL alloc] initWithString:address];
@@ -206,6 +207,7 @@ NSString * const kSecretKeyKey = @"SCSSniqueSecretKey";
             [userDefaults setObject:value forKey:key];
         }
         [userDefaults synchronize];
+        self.decoder = [[SCSSniqueDecoder alloc] initWithKey:[[NSUserDefaults standardUserDefaults] dataForKey:kSecretKeyKey]];
     }
 }
 #pragma mark - WebViewDelegate
@@ -222,14 +224,17 @@ NSString * const kSecretKeyKey = @"SCSSniqueSecretKey";
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     navBar.topItem.rightBarButtonItem = reloadButton;
     NSArray *message = [self messageFromWebview:_webView];
-    NSString *decoded = [decoder decodeMessage:message];
-    if (decoded)
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^
     {
-        UILocalNotification *note = [[UILocalNotification alloc] init];
-        note.fireDate = [NSDate date];
-        note.alertBody = decoded;
-        [[UIApplication sharedApplication] presentLocalNotificationNow:note];
-    }
+        NSString *decoded = [decoder decodeMessage:message];
+        if (decoded)
+        {
+            UILocalNotification *note = [[UILocalNotification alloc] init];
+            note.fireDate = [NSDate date];
+            note.alertBody = decoded;
+            [[UIApplication sharedApplication] presentLocalNotificationNow:note];
+        }
+    });
     [self updateTitle];
     [self updateBackNextButtons];
 }
