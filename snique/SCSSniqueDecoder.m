@@ -86,7 +86,8 @@ doneOuter:
             decodedLength += finalBlockLength;
             decoded.length = decodedLength;
             NSRange messageRange = { 8, length };
-            return [[NSString alloc] initWithData:[decoded subdataWithRange:messageRange] encoding:NSUTF8StringEncoding];
+            return [[NSString alloc] initWithData:[decoded subdataWithRange:messageRange]
+                                         encoding:NSUTF8StringEncoding];
         }
     }
     return nil;

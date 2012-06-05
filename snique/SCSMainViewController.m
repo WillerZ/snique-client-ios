@@ -103,8 +103,6 @@ static const unsigned char keyRaw[] =
                 }
                 [message addObject:[self hexDataFromString:[eTag substringWithRange:range]]];
             }
-            NSLog(@"SRC %@",src);
-            NSLog(@"URL %@ - ETag %@",url,eTag);
         }
     }];
     return message;
