@@ -153,44 +153,48 @@ NSString * const kSecretKeyKey = @"SCSSniqueSecretKey";
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     NSString *address = textField.text;
-    if ([address rangeOfString:@"set-key:"].location == 0)
+    if (address.length > 0)
     {
-        NSString *hexKey = [address substringFromIndex:8];
-        NSData *newKey = [self hexDataFromString:hexKey];
-        if ((newKey.length == 16) || (newKey.length == 32))
+        if ([address rangeOfString:@"set-key:"].location == 0)
         {
-            NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
-            [userDefaults setObject:newKey forKey:kSecretKeyKey];
-            [userDefaults synchronize];
-            self.decoder = [[SCSSniqueDecoder alloc] initWithKey:newKey];
-            [[NSUbiquitousKeyValueStore defaultStore] setData:newKey forKey:kSecretKeyKey];
+            NSString *hexKey = [address substringFromIndex:8];
+            NSData *newKey = [self hexDataFromString:hexKey];
+            if ((newKey.length == 16) || (newKey.length == 32))
+            {
+                NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
+                [userDefaults setObject:newKey forKey:kSecretKeyKey];
+                [userDefaults synchronize];
+                self.decoder = [[SCSSniqueDecoder alloc] initWithKey:newKey];
+                [[NSUbiquitousKeyValueStore defaultStore] setData:newKey forKey:kSecretKeyKey];
+            }
+            else
+            {
+                [[[UIAlertView alloc] initWithTitle:@"Invalid Key"
+                                            message:@"Key must contain 32 or 64 hexadecimal digits"
+                                           delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil] show];
+                return NO;
+            }
         }
         else
         {
-            [[[UIAlertView alloc] initWithTitle:@"Invalid Key"
-                                        message:@"Key must contain 32 or 64 hexadecimal digits"
-                                       delegate:nil
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil] show];
+            NSURL *url = nil;
+            if ([address rangeOfString:@" "].location != NSNotFound)
+            {
+                url = [[NSURL alloc] initWithScheme:@"http"
+                                               host:@"www.google.com"
+                                               path:[@"/search?btnG=1&pws=0&q=" stringByAppendingString:[[address stringByReplacingOccurrencesOfString:@" " withString:@"+"]
+                                                                                                         stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+            }
+            else
+                url = [[NSURL alloc] initWithString:address];
+            if (!url.scheme.length)
+            {
+                url = [[NSURL alloc] initWithString:[@"http://" stringByAppendingString:address]];
+            }
+            [webView loadRequest:[NSURLRequest requestWithURL:url]];
         }
-    }
-    else
-    {
-        NSURL *url = nil;
-        if ([address rangeOfString:@" "].location != NSNotFound)
-        {
-            url = [[NSURL alloc] initWithScheme:@"http"
-                                           host:@"www.google.com"
-                                           path:[@"/search?btnG=1&pws=0&q=" stringByAppendingString:[[address stringByReplacingOccurrencesOfString:@" " withString:@"+"]
-                                                                                                     stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-        }
-        else
-            url = [[NSURL alloc] initWithString:address];
-        if (!url.scheme.length)
-        {
-            url = [[NSURL alloc] initWithString:[@"http://" stringByAppendingString:address]];
-        }
-        [webView loadRequest:[NSURLRequest requestWithURL:url]];
     }
     [textField resignFirstResponder];
     return YES;
@@ -211,8 +215,6 @@ NSString * const kSecretKeyKey = @"SCSSniqueSecretKey";
 -(void)updateKVStoreItems:(NSNotification *)note
 {
     NSDictionary* userInfo = [note userInfo];
-    NSLog(@"Note: %@",note);
-    NSLog(@"Info: %@",userInfo);
     NSNumber* reasonForChange = [userInfo objectForKey:NSUbiquitousKeyValueStoreChangeReasonKey];
     NSInteger reason = -1;
     
