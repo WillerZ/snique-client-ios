@@ -27,37 +27,23 @@
     return self;
 }
 
--(NSString *)decodeMessage:(NSArray *)coded
+-(NSString *)decodeData:(NSData *)data withStartIndexes:(NSIndexSet *)indexes
 {
     NSUInteger blockSize = keyRaw.length;
-    NSMutableData *ivRaw = [NSMutableData dataWithLength:blockSize];
-    while (coded.count > 0)
+    for (NSUInteger currentIndex = 0; currentIndex != NSNotFound; currentIndex = [indexes indexGreaterThanIndex:currentIndex])
     {
-        int ivIndex = 0;
-        NSArray *remCoded = [coded copy];
-        coded = [coded subarrayWithRange:NSMakeRange(1, coded.count - 1)];
-        while (ivIndex < blockSize)
-        {
-            NSData *first = [remCoded objectAtIndex:0];
-            remCoded = [remCoded subarrayWithRange:NSMakeRange(1,remCoded.count - 1)];
-            if (remCoded.count == 0)
-                goto doneOuter;
-            unsigned char *ivBytes = ivRaw.mutableBytes;
-            const unsigned char *firstBytes = first.bytes;
-            for (int i = 0; i < first.length && ivIndex < blockSize; ++i, ++ivIndex)
-                ivBytes[ivIndex] = firstBytes[i];
-        }
-        NSMutableData *flat = [[NSMutableData alloc] init];
-        for (NSData *fragment in remCoded)
-            [flat appendData:fragment];
-        flat.length = ((flat.length / blockSize) * blockSize);
-        if (flat.length == 0)
-            goto doneOuter;
+        if (data.length < (currentIndex + blockSize + blockSize))
+            break;
+        NSRange ivRange = { currentIndex, blockSize };
+        NSRange dataRange = { currentIndex + blockSize, data.length - blockSize - currentIndex };
+        dataRange.length = (dataRange.length / blockSize) * blockSize;
+        NSData *ivRaw = [data subdataWithRange:ivRange];
+        NSData *flat = [data subdataWithRange:dataRange];
+        NSAssert(flat.length, @"Need at least one block of data to decode");
         NSString *decoded = [self decodeWithIV:ivRaw message:flat];
         if (decoded.length)
             return decoded;
     }
-doneOuter:
     return nil;
 }
 

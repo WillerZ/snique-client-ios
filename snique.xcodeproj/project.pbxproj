@@ -19,6 +19,8 @@
 		A15CA299157963CD00D6F1C6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A15CA298157963CD00D6F1C6 /* Security.framework */; };
 		A180D11E157CF0E500089DAF /* SCSSniqueDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = A180D11D157CF0E500089DAF /* SCSSniqueDecoder.m */; };
 		A180D122157EA69B00089DAF /* MainiPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A180D121157EA69B00089DAF /* MainiPhone.storyboard */; };
+		A180D12515813F8A00089DAF /* SCSSniqueWebViewExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = A180D12415813F8A00089DAF /* SCSSniqueWebViewExtractor.m */; };
+		A180D1281581406700089DAF /* NSData+SCSSnique.m in Sources */ = {isa = PBXBuildFile; fileRef = A180D1271581406700089DAF /* NSData+SCSSnique.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,10 @@
 		A180D11D157CF0E500089DAF /* SCSSniqueDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSSniqueDecoder.m; sourceTree = "<group>"; };
 		A180D120157E8DD600089DAF /* snique.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = snique.entitlements; sourceTree = "<group>"; };
 		A180D121157EA69B00089DAF /* MainiPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MainiPhone.storyboard; sourceTree = "<group>"; };
+		A180D12315813F8A00089DAF /* SCSSniqueWebViewExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSSniqueWebViewExtractor.h; sourceTree = "<group>"; };
+		A180D12415813F8A00089DAF /* SCSSniqueWebViewExtractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSSniqueWebViewExtractor.m; sourceTree = "<group>"; };
+		A180D1261581406700089DAF /* NSData+SCSSnique.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SCSSnique.h"; sourceTree = "<group>"; };
+		A180D1271581406700089DAF /* NSData+SCSSnique.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SCSSnique.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +108,10 @@
 				A180D11C157CF0E500089DAF /* SCSSniqueDecoder.h */,
 				A180D11D157CF0E500089DAF /* SCSSniqueDecoder.m */,
 				A180D121157EA69B00089DAF /* MainiPhone.storyboard */,
+				A180D12315813F8A00089DAF /* SCSSniqueWebViewExtractor.h */,
+				A180D12415813F8A00089DAF /* SCSSniqueWebViewExtractor.m */,
+				A180D1261581406700089DAF /* NSData+SCSSnique.h */,
+				A180D1271581406700089DAF /* NSData+SCSSnique.m */,
 			);
 			path = snique;
 			sourceTree = "<group>";
@@ -187,6 +197,8 @@
 				A15CA28C15792C1300D6F1C6 /* SCSMainViewController.m in Sources */,
 				A15CA2971579379200D6F1C6 /* SCSCache.m in Sources */,
 				A180D11E157CF0E500089DAF /* SCSSniqueDecoder.m in Sources */,
+				A180D12515813F8A00089DAF /* SCSSniqueWebViewExtractor.m in Sources */,
+				A180D1281581406700089DAF /* NSData+SCSSnique.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

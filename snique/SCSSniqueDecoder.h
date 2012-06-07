@@ -12,6 +12,6 @@
 
 -(id)initWithKey:(NSData *)rawKey;
 
--(NSString *)decodeMessage:(NSArray *)message;
+-(NSString *)decodeData:(NSData *)data withStartIndexes:(NSIndexSet *)indexes;
 
 @end
