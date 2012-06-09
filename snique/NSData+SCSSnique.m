@@ -53,7 +53,10 @@
         ++hexIndex;
     }
     data.length = hexIndex >>1;
-    return [data copy];
+    if ([self isSubclassOfClass:[NSMutableData class]])
+        return data;
+    else
+        return [data copy];
 }
 
 @end
