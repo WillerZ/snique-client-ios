@@ -68,7 +68,7 @@
             cs = CCCryptorUpdate(cryptor, [data bytes] + 32, [data length] - 32, decoded.mutableBytes + firstDecodedLength, decoded.length - firstDecodedLength, &decodedLength);
             NSAssert1(cs == kCCSuccess,@"CCCryptorUpdate failed %d",cs);
             decodedLength += firstDecodedLength;
-            cs = CCCryptorFinal(cryptor, decoded.mutableBytes + decodedLength, decoded.length - decodedLength, &finalBlockLength);
+            CCCryptorFinal(cryptor, decoded.mutableBytes + decodedLength, decoded.length - decodedLength, &finalBlockLength);
             decodedLength += finalBlockLength;
             decoded.length = decodedLength;
             NSRange messageRange = { 8, length };
