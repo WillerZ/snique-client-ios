@@ -11,7 +11,7 @@
 
 @implementation SCSAppDelegate
 
-@synthesize window;
+@synthesize window,ignoreNextLocalNotification;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -23,7 +23,19 @@
     [[NSUserDefaults standardUserDefaults] registerDefaults:[NSDictionary dictionaryWithObject:keyData
                                                                                         forKey:kSecretKeyKey]];
     [NSURLCache setSharedURLCache:[[SCSCache alloc] initWithMemoryCapacity:2048*1024 diskCapacity:0 diskPath:nil]];
+    UILocalNotification *note = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    if (note)
+    {
+        [application cancelLocalNotification:note];
+    }
     return YES;
+}
+
+-(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    if (!ignoreNextLocalNotification)
+        [application cancelLocalNotification:notification];
+    ignoreNextLocalNotification = NO;
 }
 
 @end

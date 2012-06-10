@@ -12,5 +12,6 @@
 @interface SCSAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (assign, nonatomic) BOOL ignoreNextLocalNotification;
 
 @end

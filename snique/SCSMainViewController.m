@@ -10,6 +10,7 @@
 #import "SCSCache.h"
 #import "SCSSniqueDecoder.h"
 #import "SCSSniqueWebViewExtractor.h"
+#import "SCSAppDelegate.h"
 #import "NSData+SCSSnique.h"
 
 @interface SCSMainViewController ()
@@ -183,6 +184,7 @@ NSString * const kSecretKeyKey = @"SCSSniqueSecretKey";
         UILocalNotification *note = [[UILocalNotification alloc] init];
         note.fireDate = [NSDate date];
         note.alertBody = message;
+        [(SCSAppDelegate *)[UIApplication sharedApplication].delegate setIgnoreNextLocalNotification:YES];
         [[UIApplication sharedApplication] presentLocalNotificationNow:note];
     }];
     [self updateTitle];
