@@ -21,6 +21,14 @@
 		A180D122157EA69B00089DAF /* MainiPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A180D121157EA69B00089DAF /* MainiPhone.storyboard */; };
 		A180D12515813F8A00089DAF /* SCSSniqueWebViewExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = A180D12415813F8A00089DAF /* SCSSniqueWebViewExtractor.m */; };
 		A180D1281581406700089DAF /* NSData+SCSSnique.m in Sources */ = {isa = PBXBuildFile; fileRef = A180D1271581406700089DAF /* NSData+SCSSnique.m */; };
+		A180D1331584FB4C00089DAF /* icon-ipad-spotlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A180D12B1584FB4C00089DAF /* icon-ipad-spotlight@2x.png */; };
+		A180D1341584FB4C00089DAF /* icon-ipad-spotlight.png in Resources */ = {isa = PBXBuildFile; fileRef = A180D12C1584FB4C00089DAF /* icon-ipad-spotlight.png */; };
+		A180D1351584FB4C00089DAF /* icon-iphone-spotlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A180D12D1584FB4C00089DAF /* icon-iphone-spotlight@2x.png */; };
+		A180D1361584FB4C00089DAF /* icon-iphone-spotlight.png in Resources */ = {isa = PBXBuildFile; fileRef = A180D12E1584FB4C00089DAF /* icon-iphone-spotlight.png */; };
+		A180D1371584FB4C00089DAF /* icon-iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = A180D12F1584FB4C00089DAF /* icon-iphone.png */; };
+		A180D1381584FB4C00089DAF /* icon-iphone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A180D1301584FB4C00089DAF /* icon-iphone@2x.png */; };
+		A180D1391584FB4C00089DAF /* icon-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = A180D1311584FB4C00089DAF /* icon-ipad.png */; };
+		A180D13A1584FB4C00089DAF /* icon-ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A180D1321584FB4C00089DAF /* icon-ipad@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +56,14 @@
 		A180D12415813F8A00089DAF /* SCSSniqueWebViewExtractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSSniqueWebViewExtractor.m; sourceTree = "<group>"; };
 		A180D1261581406700089DAF /* NSData+SCSSnique.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+SCSSnique.h"; sourceTree = "<group>"; };
 		A180D1271581406700089DAF /* NSData+SCSSnique.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+SCSSnique.m"; sourceTree = "<group>"; };
+		A180D12B1584FB4C00089DAF /* icon-ipad-spotlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-ipad-spotlight@2x.png"; sourceTree = "<group>"; };
+		A180D12C1584FB4C00089DAF /* icon-ipad-spotlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-ipad-spotlight.png"; sourceTree = "<group>"; };
+		A180D12D1584FB4C00089DAF /* icon-iphone-spotlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-iphone-spotlight@2x.png"; sourceTree = "<group>"; };
+		A180D12E1584FB4C00089DAF /* icon-iphone-spotlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-iphone-spotlight.png"; sourceTree = "<group>"; };
+		A180D12F1584FB4C00089DAF /* icon-iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-iphone.png"; sourceTree = "<group>"; };
+		A180D1301584FB4C00089DAF /* icon-iphone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-iphone@2x.png"; sourceTree = "<group>"; };
+		A180D1311584FB4C00089DAF /* icon-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-ipad.png"; sourceTree = "<group>"; };
+		A180D1321584FB4C00089DAF /* icon-ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-ipad@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +112,7 @@
 		A15CA27B15792C1300D6F1C6 /* snique */ = {
 			isa = PBXGroup;
 			children = (
+				A180D1291584FB0E00089DAF /* Images */,
 				A180D120157E8DD600089DAF /* snique.entitlements */,
 				A15CA28415792C1300D6F1C6 /* SCSAppDelegate.h */,
 				A15CA28515792C1300D6F1C6 /* SCSAppDelegate.m */,
@@ -125,6 +142,30 @@
 				A15CA28315792C1300D6F1C6 /* snique-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A180D1291584FB0E00089DAF /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				A180D12A1584FB2D00089DAF /* Icons */,
+			);
+			name = Images;
+			path = images;
+			sourceTree = "<group>";
+		};
+		A180D12A1584FB2D00089DAF /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				A180D12B1584FB4C00089DAF /* icon-ipad-spotlight@2x.png */,
+				A180D12C1584FB4C00089DAF /* icon-ipad-spotlight.png */,
+				A180D12D1584FB4C00089DAF /* icon-iphone-spotlight@2x.png */,
+				A180D12E1584FB4C00089DAF /* icon-iphone-spotlight.png */,
+				A180D12F1584FB4C00089DAF /* icon-iphone.png */,
+				A180D1301584FB4C00089DAF /* icon-iphone@2x.png */,
+				A180D1311584FB4C00089DAF /* icon-ipad.png */,
+				A180D1321584FB4C00089DAF /* icon-ipad@2x.png */,
+			);
+			path = Icons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,6 +223,14 @@
 				A15CA28015792C1300D6F1C6 /* InfoPlist.strings in Resources */,
 				A15CA28915792C1300D6F1C6 /* MainStoryboard.storyboard in Resources */,
 				A180D122157EA69B00089DAF /* MainiPhone.storyboard in Resources */,
+				A180D1331584FB4C00089DAF /* icon-ipad-spotlight@2x.png in Resources */,
+				A180D1341584FB4C00089DAF /* icon-ipad-spotlight.png in Resources */,
+				A180D1351584FB4C00089DAF /* icon-iphone-spotlight@2x.png in Resources */,
+				A180D1361584FB4C00089DAF /* icon-iphone-spotlight.png in Resources */,
+				A180D1371584FB4C00089DAF /* icon-iphone.png in Resources */,
+				A180D1381584FB4C00089DAF /* icon-iphone@2x.png in Resources */,
+				A180D1391584FB4C00089DAF /* icon-ipad.png in Resources */,
+				A180D13A1584FB4C00089DAF /* icon-ipad@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
