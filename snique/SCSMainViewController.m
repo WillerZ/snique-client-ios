@@ -73,6 +73,16 @@ NSString * const kSecretKeyKey = @"SCSSniqueSecretKey";
     titleLabel.hidden = YES;
     addressField.hidden = NO;
     addressField.text = webView.request.URL.absoluteString;
+    webView.opaque = NO;
+    [UIView animateWithDuration:0.3
+                     animations:^
+     {
+         webView.alpha = 0.5f;
+     }
+                     completion:^(BOOL finished)
+     {
+         webView.alpha = 0.5f;
+     }];
     [addressField becomeFirstResponder];
 }
 
@@ -130,6 +140,16 @@ NSString * const kSecretKeyKey = @"SCSSniqueSecretKey";
 
 -(void)textFieldDidEndEditing:(UITextField *)textField
 {
+    [UIView animateWithDuration:0.3
+                     animations:^
+     {
+         webView.alpha = 1.0f;
+     }
+                     completion:^(BOOL finished)
+     {
+         webView.alpha = 1.0f;
+         webView.opaque = YES;
+     }];
     textField.hidden = YES;
     titleLabel.hidden = NO;
 }
@@ -207,3 +227,4 @@ NSString * const kSecretKeyKey = @"SCSSniqueSecretKey";
 }
 
 @end
+
