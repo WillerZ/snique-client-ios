@@ -27,6 +27,7 @@ NSString * const kSecretKeyKey = @"SCSSniqueSecretKey";
 @synthesize decoder,extractor;
 @synthesize navBar,webView,titleLabel,addressField,leftItems;
 @synthesize reloadButton,stopButton,backButton,nextButton;
+@synthesize urlInputAccessoryView;
 
 -(void)bookMarksTapped:(id)sender
 {
@@ -46,6 +47,7 @@ NSString * const kSecretKeyKey = @"SCSSniqueSecretKey";
                                                  name:NSUbiquitousKeyValueStoreDidChangeExternallyNotification
                                                object:store];
     [store synchronize];
+    addressField.inputAccessoryView = urlInputAccessoryView;
 }
 
 - (void)viewDidUnload
@@ -187,6 +189,19 @@ NSString * const kSecretKeyKey = @"SCSSniqueSecretKey";
         [(SCSAppDelegate *)[UIApplication sharedApplication].delegate setIgnoreNextLocalNotification:YES];
         [[UIApplication sharedApplication] presentLocalNotificationNow:note];
     }];
+    [self updateTitle];
+    [self updateBackNextButtons];
+}
+
+-(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [[[UIAlertView alloc] initWithTitle:@"Page Not Loaded"
+                                message:error.localizedDescription
+                               delegate:nil
+                      cancelButtonTitle:@"Close"
+                      otherButtonTitles:nil] show];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    navBar.topItem.rightBarButtonItem = reloadButton;
     [self updateTitle];
     [self updateBackNextButtons];
 }

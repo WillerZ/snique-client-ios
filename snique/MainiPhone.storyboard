@@ -81,6 +81,7 @@
                         <outlet property="reloadButton" destination="oue-9G-xIX" id="NUn-Dd-qGi"/>
                         <outlet property="stopButton" destination="zS2-4I-Qlz" id="5T2-Pz-gqf"/>
                         <outlet property="titleLabel" destination="JJF-tk-D9N" id="FDz-yR-WUt"/>
+                        <outlet property="urlInputAccessoryView" destination="2dg-bB-qwF" id="CCB-ap-6de"/>
                         <outlet property="webView" destination="6PK-Wt-CB1" id="Ktc-QD-vnb"/>
                         <outletCollection property="leftItems" destination="LXI-Yl-Gt4" id="7PK-RM-4Si"/>
                     </connections>
@@ -95,6 +96,14 @@
                         <action selector="titleTapped:" destination="f3W-3B-3jJ" id="at3-Dj-C8f"/>
                     </connections>
                 </tapGestureRecognizer>
+                <view contentMode="scaleToFill" id="2dg-bB-qwF" customClass="SCSWebAddressInputAccessoryView">
+                    <rect key="frame" x="0.0" y="416" width="320" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="target" destination="wrw-we-kAU" id="ev6-CJ-BNW"/>
+                    </connections>
+                </view>
             </objects>
             <point key="canvasLocation" x="-57" y="-99"/>
         </scene>
@@ -112,13 +121,20 @@
                 <relationship kind="outlet" name="reloadButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="stopButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="urlInputAccessoryView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
                 <relationship kind="outletCollection" name="leftItems" candidateClass="UIBarItem"/>
             </relationships>
         </class>
+        <class className="SCSWebAddressInputAccessoryView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSWebAddressInputAccessoryView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="target" candidateClass="UIResponder"/>
+            </relationships>
+        </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>

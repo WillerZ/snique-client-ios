@@ -17,6 +17,7 @@ extern NSString * const kSecretKeyKey;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *stopButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *nextButton;
+@property (strong, nonatomic) IBOutlet UIView *urlInputAccessoryView;
 @property (strong, nonatomic) IBOutletCollection(UIBarItem)NSArray *leftItems;
 
 -(IBAction)bookMarksTapped:(id)sender;

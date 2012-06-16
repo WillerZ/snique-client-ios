@@ -78,6 +78,7 @@
                         <outlet property="reloadButton" destination="2T2-TH-5iG" id="YJV-MO-cYH"/>
                         <outlet property="stopButton" destination="e2b-aL-oQJ" id="cX2-jH-WnA"/>
                         <outlet property="titleLabel" destination="w5r-0R-q8f" id="smn-Q0-RXz"/>
+                        <outlet property="urlInputAccessoryView" destination="TVD-rJ-0ud" id="ntq-ro-CQt"/>
                         <outlet property="webView" destination="Klc-IA-Aoa" id="2A3-Uz-2rJ"/>
                         <outletCollection property="leftItems" destination="yGq-7B-MMs" id="IGv-GY-wWk"/>
                         <outletCollection property="leftItems" destination="9vw-Xf-R0L" id="rYl-GJ-yOd"/>
@@ -109,6 +110,14 @@
                         <action selector="goForward" destination="Klc-IA-Aoa" id="COk-z8-EkL"/>
                     </connections>
                 </barButtonItem>
+                <view contentMode="scaleToFill" id="TVD-rJ-0ud" customClass="SCSWebAddressInputAccessoryView">
+                    <rect key="frame" x="0.0" y="960" width="768" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="target" destination="u4J-Eu-MN4" id="NN8-Ir-rsG"/>
+                    </connections>
+                </view>
             </objects>
             <point key="canvasLocation" x="-286" y="15"/>
         </scene>
@@ -126,8 +135,15 @@
                 <relationship kind="outlet" name="reloadButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="stopButton" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="urlInputAccessoryView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
                 <relationship kind="outletCollection" name="leftItems" candidateClass="UIBarItem"/>
+            </relationships>
+        </class>
+        <class className="SCSWebAddressInputAccessoryView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SCSWebAddressInputAccessoryView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="target" candidateClass="UIResponder"/>
             </relationships>
         </class>
     </classes>
